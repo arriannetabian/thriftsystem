@@ -1,0 +1,227 @@
+﻿@{
+    Layout = "~/Views/Shared/_POSSystemLayout.cshtml";
+}
+
+<div class="row"
+     style="padding:40px;
+            min-height:100vh;
+            background:#f6efe7;
+            background-image:radial-gradient(#e6d8c8 1px, transparent 1px);
+            background-size:20px 20px;
+            font-family:'Courier New', monospace;
+            margin-bottom:0;">
+
+
+
+    <div class="col s12 m10 l8 offset-m1 offset-l2"
+         style="background:#fffaf5;
+                padding:50px 40px;
+                border-radius:25px;
+                border:3px dashed #d4a373;
+                box-shadow:6px 6px 0px #c8b6a6;">
+
+        <h4 style="text-align:center;
+                   margin-bottom:40px;
+                   font-weight:bold;
+                   color:#6d4c41;
+                   letter-spacing:3px;
+                   font-family:'Comic Sans MS', cursive;">
+            ✿ Thrift Store Registration ✿
+        </h4>
+
+        <div class="input-field col s12 m6" style="position:relative;">
+            <label style="position:static;display:block;color:#8d6e63;font-weight:bold;margin-bottom:6px;">
+                Role
+            </label>
+
+            <div style="display:flex;align-items:center;gap:10px;">
+                <i class="material-icons" style="color:#8d6e63;">badge</i>
+                <select ng-model="RoleID"
+                        style="display:block;
+                       width:100%;
+                       border:none;
+                       border-bottom:2px dashed #c8a27e;
+                       background:transparent;
+                       height:3rem;
+                       font-family:'Courier New', monospace;">
+                    <option value="" disabled selected>Select Role</option>
+                    <option value="1">Admin</option>
+                    <option value="2">Customer</option>
+                </select>
+            </div>
+
+            <small style="display:block;text-align:right;color:#8d6e63;margin-top:5px;">
+                Required
+            </small>
+        </div>
+
+        <div class="input-field col s12 m6" style="position:relative;">
+            <label style="position:static;display:block;color:#8d6e63;font-weight:bold;margin-bottom:6px;">
+                Full Name
+            </label>
+
+            <div style="display:flex;align-items:center;gap:10px;">
+                <i class="material-icons" style="color:#8d6e63;">person</i>
+                <input type="text"
+                       ng-model="FullName"
+                       maxlength="50"
+                       style="border-bottom:2px dashed #c8a27e;margin:0;">
+            </div>
+
+            <small style="display:block;text-align:right;color:#8d6e63;margin-top:5px;">
+                {{(FullName || '').length}} / 50
+            </small>
+        </div>
+
+        <div class="input-field col s12 m6" style="position:relative;">
+            <label style="position:static;display:block;color:#8d6e63;font-weight:bold;margin-bottom:6px;">
+                Email Address
+            </label>
+
+            <div style="display:flex;align-items:center;gap:10px;">
+                <i class="material-icons" style="color:#8d6e63;">email</i>
+                <input type="text"
+                       ng-model="Email"
+                       maxlength="50"
+                       style="border-bottom:2px dashed #c8a27e;margin:0;">
+            </div>
+
+            <small style="display:block;text-align:right;color:#8d6e63;margin-top:5px;">
+                {{(Email || '').length}} / 50
+            </small>
+        </div>
+
+        <div class="input-field col s12 m6" style="position:relative;">
+            <label style="position:static;display:block;color:#8d6e63;font-weight:bold;margin-bottom:6px;">
+                Contact Number
+            </label>
+
+            <div style="display:flex;align-items:center;gap:10px;">
+                <i class="material-icons" style="color:#8d6e63;">phone</i>
+                <input type="tel"
+                       ng-model="ContactNumber"
+                       maxlength="11"
+                       style="border-bottom:2px dashed #c8a27e;margin:0;">
+            </div>
+
+            <small style="display:block;text-align:right;color:#8d6e63;margin-top:5px;">
+                {{(ContactNumber || '').length}} / 11
+            </small>
+        </div>
+
+        <div class="input-field col s12 m6" style="position:relative;">
+            <label style="position:static;display:block;color:#8d6e63;font-weight:bold;margin-bottom:6px;">
+                Username
+            </label>
+
+            <div style="display:flex;align-items:center;gap:10px;">
+                <i class="material-icons" style="color:#8d6e63;">account_circle</i>
+                <input type="text"
+                       ng-model="Username"
+                       maxlength="25"
+                       style="border-bottom:2px dashed #c8a27e;margin:0;">
+            </div>
+
+            <small style="display:block;text-align:right;color:#8d6e63;margin-top:5px;">
+                {{(Username || '').length}} / 25
+            </small>
+        </div>
+
+        <div class="input-field col s12 m6" style="position:relative;">
+            <label style="position:static;display:block;color:#8d6e63;font-weight:bold;margin-bottom:6px;">
+                Password
+            </label>
+
+            <div style="display:flex;align-items:center;gap:10px;">
+                <i class="material-icons" style="color:#8d6e63;">lock</i>
+                <input type="password"
+                       ng-model="Password"
+                       maxlength="20"
+                       style="border-bottom:2px dashed #c8a27e;margin:0;">
+            </div>
+
+            <small style="display:block;text-align:right;color:#8d6e63;margin-top:5px;">
+                {{(Password || '').length}} / 20
+            </small>
+        </div>
+
+        <div class="input-field col s12" style="position:relative;">
+            <label style="position:static;display:block;color:#8d6e63;font-weight:bold;margin-bottom:6px;">
+                Status
+            </label>
+
+            <div style="display:flex;align-items:center;gap:10px;">
+                <i class="material-icons" style="color:#8d6e63;">verified_user</i>
+                <select ng-model="Status"
+                        style="display:block;
+                       width:100%;
+                       border:none;
+                       border-bottom:2px dashed #c8a27e;
+                       background:transparent;
+                       height:3rem;
+                       font-family:'Courier New', monospace;">
+                    <option value="" disabled selected>Select Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+            </div>
+
+            <small style="display:block;text-align:right;color:#8d6e63;margin-top:5px;">
+                Required
+            </small>
+        </div>
+
+        <div class="row" style="margin-top:35px;">
+            <div class="col s12"
+                 style="display:flex;
+                justify-content:center;
+                align-items:center;
+                gap:18px;
+                flex-wrap:wrap;">
+
+                <a class="waves-effect waves-light btn-large"
+                   ng-click="addFunc()"
+                   style="min-width:220px;
+                  height:50px;
+                  line-height:50px;
+                  border-radius:35px;
+                  background:linear-gradient(45deg, #f3f4d3, #a5a58d);
+                  box-shadow:3px 3px 0 #8d6e63;
+                  font-weight:bold;
+                  color:#fff;
+                  letter-spacing:1.5px;
+                  text-align:center;">
+                    REGISTER
+                    <i class="material-icons right" style="line-height:50px;">person_add</i>
+                </a>
+
+                <a class="waves-effect waves-light btn-large"
+                   ng-click="goTo('LoginPage')"
+                   style="min-width:220px;
+                  height:50px;
+                  line-height:50px;
+                  border-radius:35px;
+                  background:linear-gradient(45deg, #f3c4a9, #d4a373);
+                  box-shadow:3px 3px 0 #8d6e63;
+                  font-weight:bold;
+                  color:#fff;
+                  letter-spacing:1.5px;
+                  text-align:center;">
+                    LOGIN
+                    <i class="material-icons right" style="line-height:50px;">login</i>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12" style="margin-top:50px; text-align:center; color:#8d6e63;">
+        <hr style="border:0; border-top:1px dashed #d4a373; width:60%; margin-bottom:20px;">
+        <p style="font-size:0.9rem; letter-spacing:1px;">
+            © 2026 Thrift Store POS System. All rights reserved.
+        </p>
+        <p style="font-family:'Comic Sans MS', cursive; font-size:0.8rem; opacity:0.7;">
+            ~ Thank you for being part of our sustainable community ~
+        </p>
+    </div>
+</div>

@@ -1,0 +1,635 @@
+﻿@{
+    Layout = "~/Views/Shared/_POSSystemLayout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body, .dash-root {
+        background: #f6efe7;
+        background-image: radial-gradient(#e6d8c8 1px, transparent 1px);
+        background-size: 20px 20px;
+        font-family: 'Courier New', monospace;
+        color: #6d4c41;
+        min-height: 100vh;
+    }
+
+    .nav {
+        background: #fffaf5;
+        border-bottom: 3px dashed #d4a373;
+        padding: 0 20px;
+        height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 99;
+        box-shadow: 0 3px 0 #c8b6a6;
+    }
+
+    .nav-brand {
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 8px;
+    }
+
+    .nav-btn {
+        padding: 6px 14px;
+        border-radius: 30px;
+        border: 2px solid #d4a373;
+        background: transparent;
+        color: #6d4c41;
+        font-size: 11px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        cursor: pointer;
+        text-transform: uppercase;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+        .nav-btn:hover {
+            background: #f6efe7;
+        }
+
+        .nav-btn.dark {
+            background: #6d4c41;
+            color: #fffaf5;
+            border-color: #6d4c41;
+        }
+
+    .page {
+        padding: 20px;
+        max-width: 1100px;
+        min-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .page-title {
+        font-size: 26px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        margin-bottom: 4px;
+    }
+
+    .page-sub {
+        font-size: 12px;
+        color: #8d6e63;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+
+    .stat {
+        background: #fffaf5;
+        border: 3px dashed #d4a373;
+        border-radius: 16px;
+        box-shadow: 4px 4px 0 #c8b6a6;
+        padding: 18px 16px;
+    }
+
+    .stat-label {
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #8d6e63;
+        margin-bottom: 8px;
+    }
+
+    .stat-value {
+        font-size: 28px;
+        font-weight: bold;
+        color: #6d4c41;
+    }
+
+    .card {
+        background: #fffaf5;
+        border: 3px dashed #d4a373;
+        border-radius: 16px;
+        box-shadow: 4px 4px 0 #c8b6a6;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+
+    .card-head {
+        padding: 14px 18px;
+        border-bottom: 2px dashed #d4a373;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-title {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .card-body {
+        padding: 16px 18px;
+    }
+
+    .tbl-wrap {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        min-width: 850px;
+    }
+
+    th {
+        padding: 8px 12px;
+        text-align: left;
+        font-size: 10px;
+        text-transform: uppercase;
+        color: #8d6e63;
+        border-bottom: 2px dashed #d4a373;
+    }
+
+    td {
+        padding: 9px 12px;
+        border-bottom: 1px solid #e6d8c8;
+    }
+
+    .action-btn {
+        border: none;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+        font-size: 11px;
+        cursor: pointer;
+        margin-right: 5px;
+    }
+
+    .edit-btn {
+        background: #d4a373;
+        color: white;
+    }
+
+    .delete-btn {
+        background: #8d6e63;
+        color: white;
+    }
+
+    .modal {
+        border-radius: 20px;
+        background: #fffaf5;
+        border: 3px dashed #d4a373;
+        font-family: 'Courier New', monospace;
+        color: #6d4c41;
+    }
+
+        .modal .modal-content {
+            padding: 30px;
+        }
+
+    .modal-title {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 25px;
+        text-align: center;
+        font-family: 'Comic Sans MS', cursive;
+    }
+
+    .input-field input {
+        border-bottom: 2px dashed #c8a27e !important;
+    }
+
+    .input-field label {
+        color: #8d6e63;
+    }
+
+    .modal-footer {
+        background: #fffaf5 !important;
+        border-top: 2px dashed #d4a373;
+        padding: 10px 20px !important;
+    }
+
+    .save-modal-btn {
+        background: #6d4c41 !important;
+        color: white !important;
+        border-radius: 30px;
+        font-weight: bold;
+    }
+
+    .cancel-modal-btn {
+        background: #d4a373 !important;
+        color: white !important;
+        border-radius: 30px;
+        font-weight: bold;
+    }
+    .chart-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+
+    .chart-grid-full {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+
+    .chart-box {
+        position: relative;
+        height: 260px;
+    }
+
+    .chart-box-large {
+        position: relative;
+        height: 300px;
+    }
+</style>
+
+<div class="dash-root" ng-init="initDashboardPageFunc()">
+
+    <div class="nav">
+        <div class="nav-brand">✿ Vintage Thrift</div>
+        <div class="nav-links">
+            <a class="nav-btn">← Home</a>
+            <a class="nav-btn dark" ng-click="logoutFunc()">Logout</a>
+        </div>
+    </div>
+
+    <div class="page">
+
+        <div class="page-title">Dashboard</div>
+        <div class="page-sub">✿ Today's store overview</div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-label">{{totalRevenue ? 'Revenue' : 'Null'}}</div>
+                <div class="stat-value">₱{{totalRevenue | number:2}}</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">{{totalOrders ? 'Total Orders' : 'Null'}}</div>
+                <div class="stat-value">{{totalOrders}}</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">{{totalCustomers ? 'Total Customers' : 'Null'}}</div>
+                <div class="stat-value">{{totalCustomers}}</div>
+            </div>
+        </div>
+        <div class="chart-grid">
+            <div class="card" ng-init="getLineChartRevenueFunc()">
+                <div class="card-head">
+                    <div class="card-title">Revenue Line Chart</div>
+                    <div class="card-title">Paid Payments</div>
+                </div>
+
+                <div class="card-body">
+                    <div class="chart-box">
+                        <canvas class="chart chart-line"
+                                chart-data="lineChartData"
+                                chart-labels="lineChartLabels"
+                                chart-series="lineChartSeries"
+                                chart-options="lineChartOptions"
+                                chart-colors="lineChartColors">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" ng-init="getPieChartPaymentMethodFunc()">
+                <div class="card-head">
+                    <div class="card-title">Payment Method Pie Chart</div>
+                </div>
+
+                <div class="card-body">
+                    <div class="chart-box">
+                        <canvas class="chart chart-pie"
+                                chart-data="pieChartData"
+                                chart-labels="pieChartLabels"
+                                chart-options="pieChartOptions"
+                                chart-colors="pieChartColors">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-grid-full">
+            <div class="card" ng-init="getBarChartCustomersFunc(); checkAdminLoginFunc();">
+                <div class="card-head">
+                    <div class="card-title">Customer Registered Bar Chart</div>
+                </div>
+
+                <div class="card-body">
+                    <div class="chart-box-large">
+                        <canvas class="chart chart-bar"
+                                chart-data="barChartData"
+                                chart-labels="barChartLabels"
+                                chart-series="barChartSeries"
+                                chart-options="barChartOptions"
+                                chart-colors="barChartColors">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-head">
+                <div class="card-title">Customer List</div>
+                <div class="card-title">{{customers.length}} customers</div>
+            </div>
+
+            <div class="card-body">
+                <div class="tbl-wrap">
+                    <table>
+
+                        <tr>
+                            <th>User ID</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th>Username</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Action</th>
+                        </tr>
+
+
+
+                        <tr ng-repeat="customer in customers">
+                            <td>{{customer.userID}}</td>
+                            <td>{{customer.full_name}}</td>
+                            <td>{{customer.email}}</td>
+                            <td>{{customer.contact_number}}</td>
+                            <td>{{customer.username}}</td>
+                            <td>{{customer.status}}</td>
+                            <td>{{customer.createdAt}}</td>
+                            <td>
+                                <button class="action-btn edit-btn"
+                                        ng-click="updateCustomerModalFunc(customer)">
+                                    UPDATE
+                                </button>
+
+                                <button class="action-btn delete-btn"
+                                        ng-click="deleteUserFunc(customer)">
+                                    DELETE
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr ng-if="customers.length == 0">
+                            <td colspan="8" style="text-align:center;">
+                                No customers found.
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div ng-show="showUpdateModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-title">✿ Update Customer ✿</div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <select ng-model="RoleID">
+                        <option value="1">Admin</option>
+                        <option value="2">Customer</option>
+                    </select>
+                    <label>Role</label>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input type="text" ng-model="FullName" maxlength="100">
+                    <label class="active">Full Name</label>
+                    <small style="display:block;text-align:right;color:#8d6e63;">
+                        {{(FullName || '').length}} / 100
+                    </small>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input type="text" ng-model="Email" maxlength="100">
+                    <label class="active">Email</label>
+                    <small style="display:block;text-align:right;color:#8d6e63;">
+                        {{(Email || '').length}} / 100
+                    </small>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input type="text" ng-model="ContactNumber" maxlength="20">
+                    <label class="active">Contact Number</label>
+                    <small style="display:block;text-align:right;color:#8d6e63;">
+                        {{(ContactNumber || '').length}} / 20
+                    </small>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input type="text" ng-model="Username" maxlength="50">
+                    <label class="active">Username</label>
+                    <small style="display:block;text-align:right;color:#8d6e63;">
+                        {{(Username || '').length}} / 50
+                    </small>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input type="password" ng-model="Password" maxlength="255">
+                    <label class="active">Password</label>
+                    <small style="display:block;text-align:right;color:#8d6e63;">
+                        {{(Password || '').length}} / 255
+                    </small>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <select ng-model="Status">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                    <label>Status</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a class="modal-close waves-effect btn cancel-modal-btn">
+                CANCEL
+            </a>
+
+            <a class="waves-effect btn save-modal-btn"
+               ng-click="updateCustomerFunc()">
+                SAVE CHANGES
+            </a>
+        </div>
+    </div>
+    <div ng-show="showUpdateModal"
+         style="position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.45);
+            z-index:9999;
+            display:flex;
+            justify-content:center;
+            align-items:center;">
+
+        <div style="width:650px;
+                max-height:90vh;
+                overflow-y:auto;
+                background:#fffaf5;
+                border:3px dashed #d4a373;
+                border-radius:25px;
+                box-shadow:6px 6px 0 #6d4c41;
+                padding:35px;
+                color:#6d4c41;
+                font-family:'Courier New', monospace;">
+
+            <h4 style="text-align:center;
+                   font-family:'Comic Sans MS', cursive;
+                   font-weight:bold;
+                   margin-bottom:25px;">
+                ✿ Update Customer ✿
+            </h4>
+
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <select ng-model="RoleID"
+                            style="display:block;
+                               border:none;
+                               border-bottom:2px dashed #c8a27e;
+                               background:transparent;
+                               height:3rem;">
+                        <option value="1">Admin</option>
+                        <option value="2">Customer</option>
+                    </select>
+                    <label class="active">Role</label>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <select ng-model="Status"
+                            style="display:block;
+                               border:none;
+                               border-bottom:2px dashed #c8a27e;
+                               background:transparent;
+                               height:3rem;">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                    <label class="active">Status</label>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input type="text"
+                           ng-model="FullName"
+                           maxlength="100"
+                           style="border-bottom:2px dashed #c8a27e;">
+                    <label class="active">Full Name</label>
+                    <small style="display:block;text-align:right;color:#8d6e63;">
+                        {{(FullName || '').length}} / 100
+                    </small>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input type="text"
+                           ng-model="Email"
+                           maxlength="100"
+                           style="border-bottom:2px dashed #c8a27e;">
+                    <label class="active">Email</label>
+                    <small style="display:block;text-align:right;color:#8d6e63;">
+                        {{(Email || '').length}} / 100
+                    </small>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input type="text"
+                           ng-model="ContactNumber"
+                           maxlength="20"
+                           style="border-bottom:2px dashed #c8a27e;">
+                    <label class="active">Contact Number</label>
+                    <small style="display:block;text-align:right;color:#8d6e63;">
+                        {{(ContactNumber || '').length}} / 20
+                    </small>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input type="text"
+                           ng-model="Username"
+                           maxlength="50"
+                           style="border-bottom:2px dashed #c8a27e;">
+                    <label class="active">Username</label>
+                    <small style="display:block;text-align:right;color:#8d6e63;">
+                        {{(Username || '').length}} / 50
+                    </small>
+                </div>
+
+                <div class="input-field col s12">
+                    <input type="password"
+                           ng-model="Password"
+                           maxlength="255"
+                           style="border-bottom:2px dashed #c8a27e;">
+                    <label class="active">Password</label>
+                    <small style="display:block;text-align:right;color:#8d6e63;">
+                        {{(Password || '').length}} / 255
+                    </small>
+                </div>
+            </div>
+
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+                <button ng-click="closeUpdateModalFunc()"
+                        style="border:none;
+                           padding:12px 25px;
+                           border-radius:30px;
+                           background:#d4a373;
+                           color:white;
+                           font-weight:bold;
+                           cursor:pointer;">
+                    CANCEL
+                </button>
+
+                <button ng-click="addFunc()"
+                        style="border:none;
+                           padding:12px 25px;
+                           border-radius:30px;
+                           background:#6d4c41;
+                           color:white;
+                           font-weight:bold;
+                           cursor:pointer;">
+                    SAVE CHANGES
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12" style="margin-top:50px; text-align:center; color:#8d6e63;">
+        <hr style="border:0; border-top:1px dashed #d4a373; width:60%; margin-bottom:20px;">
+        <p style="font-size:0.9rem; letter-spacing:1px;">
+            © 2026 Thrift Store POS System. All rights reserved.
+        </p>
+        <p style="font-family:'Comic Sans MS', cursive; font-size:0.8rem; opacity:0.7;">
+            ~ Admin Dashboard ~
+        </p>
+    </div>
+</div>

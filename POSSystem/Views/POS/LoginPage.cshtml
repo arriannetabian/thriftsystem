@@ -1,0 +1,89 @@
+﻿@{
+    Layout = "~/Views/Shared/_POSSystemLayout.cshtml";
+}
+
+<div>
+
+    <div style="height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:#f6efe7;
+            background-image:radial-gradient(#e6d8c8 1px, transparent 1px);
+            background-size:20px 20px;
+            font-family:'Courier New', monospace;">
+
+        <div style="background:#fffaf5;
+                padding:45px;
+                width:420px;
+                border-radius:20px;
+                border:3px dashed #d4a373;
+                box-shadow:6px 6px 0px #c8b6a6;">
+
+            <h4 style="text-align:center;
+                   font-weight:bold;
+                   margin-bottom:35px;
+                   letter-spacing:3px;
+                   color:#6d4c41;">
+                ✿ Welcome Back ✿
+            </h4>
+
+            <form>
+
+                <div class="input-field">
+                    <i class="material-icons prefix" style="color:#8d6e63;">account_circle</i>
+                    <input type="text"
+                           ng-model="inputUsername"
+                           style="border-bottom:2px dashed #c8a27e;">
+                    <label>Username</label>
+                </div>
+
+                <div class="input-field">
+                    <i class="material-icons prefix" style="color:#8d6e63;">lock</i>
+                    <input type="password"
+                           ng-model="inputPassword"
+                           style="border-bottom:2px dashed #c8a27e;">
+                    <label>Password</label>
+                </div>
+
+                <br>
+
+                <a class="waves-effect waves-light btn"
+                   ng-click="loginFunc()"
+                   style="width:100%;
+                      border-radius:35px;
+                      background:#a5a58d;
+                      font-weight:bold;
+                      letter-spacing:2px;
+                      box-shadow:3px 3px 0 #6b705c;">
+
+                    Log In
+                </a>
+
+                <div style="text-align:center; margin-top:20px;">
+                    <a style="color:#6d4c41;
+                          font-weight:bold;
+                          text-decoration:none;
+                          letter-spacing:1px;
+                          cursor: pointer;"
+                       ng-click="goTo('RegistrationPage')">
+                        Create thrift account
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+    <div class="col s12" style="margin-top: 50px; text-align: center; color: #8d6e63;">
+        <hr style="border: 0; border-top: 1px dashed #d4a373; width: 60%; margin-bottom: 20px;">
+        <p style="font-size: 0.9rem; letter-spacing: 1px;">
+            © 2026 Thrift Store POS System. All rights reserved.
+        </p>
+        <p style="font-family: 'Comic Sans MS', cursive; font-size: 0.8rem; opacity: 0.7;">
+            ~ Thank you for being part of our sustainable community ~
+        </p>
+    </div>
+</div>
+</div>

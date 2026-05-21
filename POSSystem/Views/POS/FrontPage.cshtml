@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Views/Shared/_POSSystemLayout.cshtml";
+}
+<div ng-init="checkArray()">
+    <div style="min-height:100vh;
+            font-family:'Courier New', monospace;
+            background:#f6efe7;
+            background-image:radial-gradient(#e6d8c8 1px, transparent 1px);
+            background-size:20px 20px;">
+
+        
+        <div style="text-align:center; padding:50px 20px;">
+            <h1 style="color:#6d4c41; letter-spacing:4px; font-size:48px; margin-bottom:10px;">
+                ✿ Vintage Thrift ✿
+            </h1>
+            <p style="color:#8d6e63; font-size:18px; max-width:600px; margin:0 auto;">
+                Sustainable Fashion • Preloved Style • Unique Finds
+            </p>
+        </div>
+
+
+        <div style="display:flex; flex-direction:column; align-items:center; text-align:center; margin-bottom:50px;">
+            <p style="max-width:600px; color:#a1887f; font-size:16px; margin-bottom:30px;">
+                Discover hidden treasures and unique vintage pieces from our curated thrift collection.
+                From cozy sweaters to statement accessories, every item tells a story!
+            </p>
+
+            <div style="display:flex; gap:20px; flex-wrap:wrap; justify-content:center;">
+                <a class="waves-effect waves-light btn-large"
+                   ng-click="goTo('LoginPage')"
+                   style="border-radius:35px; background:#a5a58d; font-weight:bold; letter-spacing:2px; box-shadow:3px 3px 0 #6b705c; padding:0 40px;">
+                    Log In
+                </a>
+
+                <a class="waves-effect waves-light btn-large"
+                   ng-click="goTo('RegistrationPage')"
+                   style="border-radius:35px; background:#d4a373; font-weight:bold; letter-spacing:2px; box-shadow:3px 3px 0 #8d6e63; padding:0 40px;">
+                    Register
+                </a>
+
+            </div>
+        </div>
+
+        
+        <div style="max-width:1000px; margin:0 auto; display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:30px; padding:0 20px;">
+
+            <div style="background:#fffaf5; border:3px dashed #d4a373; border-radius:20px; box-shadow:5px 5px 0 #c8b6a6; padding:20px; text-align:center;">
+                <img src="" style="border-radius:10px; margin-bottom:15px;" />
+                <h4 style="color:#6d4c41; margin-bottom:10px;">Retro Sweater</h4>
+                <p style="color:#8d6e63; font-size:14px;">Cozy knit sweater, perfect for vintage style lovers.</p>
+            </div>
+
+            <div style="background:#fffaf5; border:3px dashed #d4a373; border-radius:20px; box-shadow:5px 5px 0 #c8b6a6; padding:20px; text-align:center;">
+                <img src="" style="border-radius:10px; margin-bottom:15px;" />
+                <h4 style="color:#6d4c41; margin-bottom:10px;">Polka Dot Dress</h4>
+                <p style="color:#8d6e63; font-size:14px;">Fun and whimsical vintage dress to brighten your wardrobe.</p>
+            </div>
+
+            <div style="background:#fffaf5; border:3px dashed #d4a373; border-radius:20px; box-shadow:5px 5px 0 #c8b6a6; padding:20px; text-align:center;">
+                <img src="" style="border-radius:10px; margin-bottom:15px;" />
+                <h4 style="color:#6d4c41; margin-bottom:10px;">Classic Fedora</h4>
+                <p style="color:#8d6e63; font-size:14px;">Timeless hat for retro vibes and everyday style.</p>
+            </div>
+
+            <div style="background:#fffaf5; border:3px dashed #d4a373; border-radius:20px; box-shadow:5px 5px 0 #c8b6a6; padding:20px; text-align:center;">
+                <img src="" style="border-radius:10px; margin-bottom:15px;" />
+                <h4 style="color:#6d4c41; margin-bottom:10px;">Vintage Backpack</h4>
+                <p style="color:#8d6e63; font-size:14px;">Perfect for carrying your treasures with style and nostalgia.</p>
+            </div>
+
+        </div>
+
+        <div class="col s12" style="margin-top: 50px; text-align: center; color: #8d6e63;">
+            <hr style="border: 0; border-top: 1px dashed #d4a373; width: 60%; margin-bottom: 20px;">
+            <p style="font-size: 0.9rem; letter-spacing: 1px;">
+                © 2026 Thrift Store POS System. All rights reserved.
+            </p>
+            <p style="font-family: 'Comic Sans MS', cursive; font-size: 0.8rem; opacity: 0.7;">
+                ~ Thank you for being part of our sustainable community ~
+            </p>
+        </div>
+    </div>
+</div>
